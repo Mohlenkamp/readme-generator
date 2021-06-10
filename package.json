@@ -1,0 +1,27 @@
+{
+  "name": "readme-generator",
+  "version": "1.0.0",
+  "description": "This node.js project is designed to create a high-quality ReadMe.MD markdown file automatically for a GitHub project with user-supplied required information.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohlenkamp/readme-generator.git"
+  },
+  "keywords": [
+    "readme",
+    "markdown",
+    "node"
+  ],
+  "author": "J. Mohlenkamp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mohlenkamp/readme-generator/issues"
+  },
+  "homepage": "https://github.com/Mohlenkamp/readme-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.0"
+  }
+}
