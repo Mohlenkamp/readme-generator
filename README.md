@@ -11,6 +11,11 @@
 
 ## GitPages Location: n/a
 
+## Walkthrough Video(s): 
+
+Part 1: https://drive.google.com/file/d/19DXHeRMRQebmIW_Tm6oFIQMhtor16VKk/view
+Part 2: https://drive.google.com/file/d/1MqSDzCrXPgYd20k_TsUtTs2zeDc1RyFG/view
+
 ## Description 
 
 This is an automated readme-generator program that uses Node.js to create the gitHub README.md file used
