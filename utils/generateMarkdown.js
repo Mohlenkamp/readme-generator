@@ -1,4 +1,4 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
+// Create a function that returns a license badge based on which license is passed in
 
 const licenseArray = require("./generateLicense.js");
 
@@ -58,13 +58,13 @@ function renderLicenseBadge(isLicense, data) {
   }
 }
 
-// TODO: Create a function that returns the license link
+// Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(isLicense) {
   return (!isLicense ? '' : '* [License](#license)')
 }
 
-// TODO: Create a function that returns the license section of README
+// Create a function that returns the license section of README
 // If there is no license, return an empty string
 // Same issue with just keeping it clear in my head
 
@@ -76,6 +76,8 @@ function renderLicenseSection(isLicense, data) {
 }
 
 // I decided that there should be a default Contributor covenant, so I put this in.
+// I also thought the badge made more sense down in this section since it only
+// pertained to contributions... 
 function renderContributingSection(isDefault,data) {
   if (!isDefault){
     return (data.contributing)
@@ -86,7 +88,7 @@ function renderContributingSection(isDefault,data) {
   at https://www.contributor-covenant.org/ . `)
 }
 }
-// This time I just used data to show I knew how
+// This time I just passed the data param to show I knew how
 function renderScreenshotLink(data) {
   if (data.confirmScreenshot){
     return `![${data.screenshotText}](../src/screenshot.jpg)`
@@ -96,7 +98,7 @@ function renderScreenshotLink(data) {
 }
 
 
-// TODO: Create a function to generate markdown for README
+// Create a function to generate markdown for README
 const generateMarkdown = data => {
   return `
 # ${data.title}

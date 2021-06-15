@@ -1,85 +1,15 @@
-// TODO: Include packages needed for this application
+// John Mohlenkamp
+// Assignment 9: Readme Generator
+// June 15, 2021
+
+//Include packages needed for this application
 const fs = require('fs')  // File system 
 const inquirer = require('inquirer'); // Inquirer package
 const licenseArray = require('./utils/generateLicense.js');
 const generateMarkdown = require('./utils/generateMarkdown.js'); // Utility file
-const testData = require('./test/mockData.js')
+const testData = require('./test/mockData.js') //Mock data for testing -- see init function for instructions
 
-const mockdata2 = 
-{
-  developer: 'Captain Deadpool',
-  email: 'cpt.deadpool@gmail.com',
-  title: 'Negasonic-Teenage-Warhead',
-  projectDescription: 'Pity the prom date that messes with her...\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef \r\n' +
-    'nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.',
-  githubName: 'cptDeadpool',
-  gitHubLink: 'github.com/cptDeadpool/Negasonic-Teenage-Warhead',
-  installation: 'Only install this BEFORE you go into a fight.\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef \r\n' +
-    'nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.',
-  usageInstructions: 'Only use it when the bad guys are right behind the truck,\r\n' +
-    'or you need to get up to the flight deck.\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef \r\n' +
-    'nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.',
-  confirmContributing: true,
-  features: 'Rich corinthian leather',
-  testing: 'Only test this at the Applebees in Jacksonville.\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef \r\n' +
-    'nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.',
-  credits: 'An overpaid tool....\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef \r\n' +
-    'nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.',
-  confirmLicense: true,
-  license: [ 'Do What The F*ck You Want To Public License' ],
-  badgeColor: [ 'red' ]
-}
-
-
-const mockData = 
-{
-  developer: 'Jane Doe',
-  email: 'jane.doe@gmail.com',
-  title: 'Negasonic Teenage Warhead',
-  projectDescription: "This is a sample project description. We'll put in some lorem ipsum to simulate more text.\r\n" +        
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.\r\n' +
-    '\r\n' +
-    'Short ribs dolor reprehenderit, tongue nisi brisket salami ullamco id duis elit cupidatat doner. Mollit beef burgdoggen capicola chuck dolor. Tongue ex meatball ullamco chislic frankfurter anim venison ribeye exercitation swine buffalo short ribs pastrami sint. Jowl dolore esse biltong filet mignon capicola. Flank proident veniam ham in, shank et jerky shankle duis pork belly \r\n' +
-    'anim chislic occaecat filet mignon. Ullamco bacon buffalo tongue tempor hamburger est dolore jowl shankle mollit t-bone pancetta. Pastrami t-bone pork loin, esse cow magna pork belly minim salami deserunt eiusmod exercitation lorem.',
-  githubName: 'DoeADeer',
-  gitHubLink: 'github.com/DoeADeer/Negasonic-Teenage-Warhead',
-  installation: 'Install this and then wait for the explosions....\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.\r\n' +
-    '\r\n' +
-    'Short ribs dolor reprehenderit, tongue nisi brisket salami ullamco id duis elit cupidatat doner. Mollit beef burgdoggen capicola chuck dolor. Tongue ex meatball ullamco chislic frankfurter anim venison ribeye exercitation swine buffalo short ribs pastrami sint. Jowl dolore esse biltong filet mignon capicola. Flank proident veniam ham in, shank et jerky shankle duis pork belly \r\n' +
-    'anim chislic occaecat filet mignon. Ullamco bacon buffalo tongue tempor hamburger est dolore jowl shankle mollit t-bone pancetta. Pastrami t-bone pork loin, esse cow magna pork belly minim salami deserunt eiusmod exercitation lorem.',
-  usageInstructions: 'Use whenever you want to make a big mess.\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.\r\n' +
-    '\r\n' +
-    'Short ribs dolor reprehenderit, tongue nisi brisket salami ullamco id duis elit cupidatat doner. Mollit beef burgdoggen capicola chuck dolor. Tongue ex meatball ullamco chislic frankfurter anim venison ribeye exercitation swine buffalo short ribs pastrami sint. Jowl dolore esse biltong filet mignon capicola. Flank proident veniam ham in, shank et jerky shankle duis pork belly \r\n' +
-    'anim chislic occaecat filet mignon. Ullamco bacon buffalo tongue tempor hamburger est dolore jowl shankle mollit t-bone pancetta. Pastrami t-bone pork loin, esse cow magna pork belly minim salami deserunt eiusmod exercitation lorem.',
-  confirmContributing: true,
-  testing: 'Test by making it angry and then back up.\r\n' +
-    '\r\n' +
-    'Spicy jalapeno bacon ipsum dolor amet pork loin pig jerky, dolor pancetta minim bresaola buffalo reprehenderit ham hock flank. Corned beef tongue irure, cupim velit tail excepteur in ea ut hamburger. Flank ullamco beef nisi meatloaf occaecat buffalo meatball biltong id. Strip steak nulla doner qui labore beef ribs chuck drumstick picanha tongue bresaola exercitation dolore.\r\n' +
-    '\r\n' +
-    'Short ribs dolor reprehenderit, tongue nisi brisket salami ullamco id duis elit cupidatat doner. Mollit beef burgdoggen capicola chuck dolor. Tongue ex meatball ullamco chislic frankfurter anim venison ribeye exercitation swine buffalo short ribs pastrami sint. Jowl dolore esse biltong filet mignon capicola. Flank proident veniam ham in, shank et jerky shankle duis pork belly \r\n' +
-    'anim chislic occaecat filet mignon. Ullamco bacon buffalo tongue tempor hamburger est dolore jowl shankle mollit t-bone pancetta. Pastrami t-bone pork loin, esse cow magna pork belly minim salami deserunt eiusmod exercitation lorem.',
-  confirmLicense: true,
-  license: [ 'Do What The F*ck You Want To Public License' ],
-  badgeColor: [ 'yellow' ]
-}
-
-
-// TODO: Create an array of questions for user input
+//Create an array of questions for user input
 const questions = [
   {
     type: 'input',
@@ -248,7 +178,7 @@ const questions = [
   
 ];
 
-// TODO: Create a function to write README file
+//Create a function to write README file
 const writeToFile = fileContent => {
   return new Promise((resolve, reject) => {
     fs.writeFile('./dist/README.md', fileContent, err => {
@@ -265,19 +195,20 @@ const writeToFile = fileContent => {
   });
 };
 
-// TODO: Create a function to initialize app
-//function init() {}
-
+//Create a function to initialize app
 function init() {
-  // inquirer.prompt(questions)
-  //     .then(function (data) {
-  //       console.log(data);
-  //      return writeToFile(generateMarkdown(data));
-  // })
+  inquirer.prompt(questions)
+      .then(function (data) {
+        console.log(data);
+       return writeToFile(generateMarkdown(data));
+  })
 
   // Testing section - You can use this to supply mock data from /test instead of manually entering
-   let data = testData()
-   writeToFile(generateMarkdown(data));
+  // The sample screenshot ntw.jpg should be copied to /src and named screenshot.jpg to work properly.
+
+  //  let data = testData()
+  //  writeToFile(generateMarkdown(data));
+  
   // End of testing section
 
     }
